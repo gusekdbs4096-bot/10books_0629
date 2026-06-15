@@ -466,29 +466,32 @@
     <div id="modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
         <div class="modal-overlay fixed inset-0 bg-black bg-opacity-40" onclick="closeModal()"></div>
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="modal-content relative bg-white rounded-lg shadow-lg max-w-2xl w-full max-h-[85vh] overflow-y-auto border border-gray-200">
+            <div class="modal-content relative bg-white rounded-lg shadow-xl w-[80vw] max-w-[1000px] max-h-[85vh] overflow-y-auto border border-gray-200">
+                <!-- 닫기 버튼 -->
                 <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 z-10 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
-                <div class="p-8 space-y-6">
-                    <div class="flex gap-6">
-                        <img id="modalCover" src="" alt="책 표지" class="w-32 h-48 object-cover rounded shadow-md flex-shrink-0 border border-gray-300">
+
+                <div class="p-10 space-y-8">
+                    <!-- 상단: 표지 + 정보 -->
+                    <div class="flex gap-8 items-start">
+                        <img id="modalCover" src="" alt="책 표지" class="w-[150px] h-auto object-contain flex-shrink-0 rounded shadow-md border border-gray-200">
                         <div class="flex-1">
-                            <h2 id="modalTitle" class="text-3xl font-bold text-gray-900 mb-2"></h2>
-                            <p id="modalSubtitle" class="text-lg text-gray-700 font-semibold mb-4"></p>
-                            <p id="modalAuthor" class="text-gray-600 mb-4"></p>
+                            <h2 id="modalTitle" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+                            <p id="modalAuthor" class="text-sm text-gray-600 font-medium mb-3"></p>
+                            <p id="modalSubtitle" class="text-xs text-gray-500 leading-relaxed"></p>
                         </div>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">도서 소개</h3>
-                        <p id="modalDescription" class="text-gray-700 leading-relaxed whitespace-pre-line"></p>
-                    </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <a href="https://library.coex.co.kr" target="_blank" class="inline-block w-full bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold text-center">
-                            전자도서관에서 읽기
-                        </a>
+
+                    <!-- 구분선 -->
+                    <div class="border-t border-gray-200"></div>
+
+                    <!-- 추천 이유 -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-4">이 책을 추천하는 이유</h3>
+                        <p id="modalDescription" class="text-base text-gray-700 leading-relaxed line-height-1-6"></p>
                     </div>
                 </div>
             </div>
@@ -504,105 +507,105 @@
             {
                 id: 2,
                 title: "HBR 위대한 통찰",
-                subtitle: "",
+                subtitle: "HBR 창간 100주년 핵심 컬렉션 · 한국경제 소개 도서",
                 author: "하버드비즈니스리뷰",
                 coverImage: "hbr.jpg",
                 group: "group1",
                 categoryTag: "경제경영",
-                description: ""
+                description: "지난 100년간 경영의 흐름을 바꾼 주요 아이디어를 한 권으로 살펴볼 수 있습니다."
             },
             {
                 id: 5,
                 title: "세계 경제 지각 변동",
-                subtitle: "",
+                subtitle: "KBS 경제전문기자 박종훈 저서 · 한국경제 소개 도서",
                 author: "박종훈",
                 coverImage: "세계경제지각변동.jpg",
                 group: "group1",
                 categoryTag: "경제경영",
-                description: ""
+                description: "세계 경제 질서의 변화를 통해 지금의 시장과 업무 환경을 더 넓은 시야로 읽을 수 있습니다."
             },
             {
                 id: 10,
                 title: "역사는 어떻게 진보하고 왜 퇴보하는가",
-                subtitle: "",
+                subtitle: "YES24 오늘의책 · 이동진의 파이아키아 추천도서",
                 author: "파리드 자카리아",
                 coverImage: "역사는어떻게진보하고왜퇴보하는가.jpg",
                 group: "group1",
                 categoryTag: "세계사",
-                description: ""
+                description: "근대 400년의 역사 속 진보와 퇴보의 반복을 통해 오늘날의 변화와 위기를 넓게 바라볼 수 있습니다."
             },
             // Group 2: 성장하는 일의 방식 (3권)
             {
                 id: 1,
                 title: "베조스 레터",
-                subtitle: "",
+                subtitle: "조선일보·한국경제 소개 도서 · 아마존 경영 원칙 분석서",
                 author: "스티브 앤더슨",
                 coverImage: "베조스레터.jpg",
                 group: "group2",
                 categoryTag: "경제경영",
-                description: ""
+                description: "아마존의 성장 원칙을 통해 실패와 리스크를 관리하며 새로운 기회를 만드는 방식을 배울 수 있습니다."
             },
             {
                 id: 4,
                 title: "브랜드로 남는다는 것",
-                subtitle: "",
+                subtitle: "세종도서 교양 선정도서 · 매일경제·한국경제 소개 도서",
                 author: "홍성태",
                 coverImage: "브랜드로남는다는것.jpg",
                 group: "group2",
                 categoryTag: "경제경영",
-                description: ""
+                description: "오래 기억되는 브랜드가 되기 위해 필요한 관점과 자기다움의 의미를 생각하게 합니다."
             },
             {
                 id: 8,
                 title: "기획의 정석",
-                subtitle: "",
+                subtitle: "20만 부 기념 특별판 · 한국일보 소개 도서",
                 author: "박신영",
                 coverImage: "기획의정석.jpg",
                 group: "group2",
                 categoryTag: "자기계발",
-                description: ""
+                description: "생각을 정리하고 설득력 있게 전달하는 기획의 기본기를 실무적으로 익힐 수 있습니다."
             },
             // Group 3: 사람을 이해하고 연결하는 법 (2권)
             {
                 id: 9,
                 title: "사람을 안다는 것",
-                subtitle: "",
+                subtitle: "최인철 서울대 교수 추천 · 조선일보·중앙일보 소개 도서",
                 author: "데이비드 브룩스",
                 coverImage: "사람을안다는것.jpg",
                 group: "group3",
                 categoryTag: "인문교양",
-                description: ""
+                description: "사람과 관계를 더 깊이 이해하며, 협업과 리더십의 출발점을 다시 생각하게 합니다."
             },
             {
                 id: 3,
                 title: "언어의 온도",
-                subtitle: "",
+                subtitle: "교보문고 2017 종합 베스트셀러 1위 · 170만 부 기념 에디션",
                 author: "이기주",
                 coverImage: "언어의온도.png",
                 group: "group3",
                 categoryTag: "시/에세이",
-                description: ""
+                description: "말과 글이 관계에 남기는 온도를 돌아보며, 더 따뜻한 소통의 방식을 생각하게 합니다."
             },
             // Group 4: 익숙함을 깨우는 관점 전환 (2권)
             {
                 id: 6,
                 title: "편안함의 습격",
-                subtitle: "",
+                subtitle: "뉴욕타임스 베스트셀러 · 정재승 KAIST 교수 추천",
                 author: "마이클 이스터",
                 coverImage: "편안함의습격.jpg",
                 group: "group4",
                 categoryTag: "인문교양",
-                description: ""
+                description: "편안함에 익숙해진 일상에서 벗어나 몸과 마음의 회복력, 도전성을 다시 생각하게 합니다."
             },
             {
                 id: 7,
                 title: "서사의 위기",
-                subtitle: "",
+                subtitle: "『피로사회』 한병철 저서 · 조선일보·중앙일보·한겨레 소개 도서",
                 author: "한병철",
                 coverImage: "서사의위기.jpg",
                 group: "group4",
                 categoryTag: "인문교양",
-                description: ""
+                description: "정보가 넘치는 시대에 우리가 왜 깊이 있는 이야기와 맥락을 잃어가고 있는지 질문하게 합니다."
             }
         ];
         // ============================================================
