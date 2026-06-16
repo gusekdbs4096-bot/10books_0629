@@ -307,8 +307,25 @@
             background-color: rgba(15, 23, 42, 0.35);
         }
 
+        /* 가운데 정렬 안정화 */
+        .center-aligned {
+            text-align: center !important;
+        }
+
         table thead th:first-child,
         table tbody td:first-child {
+            text-align: center !important;
+        }
+
+        /* 모든 text-center 요소에 대한 강화된 규칙 */
+        .text-center {
+            text-align: center !important;
+        }
+
+        p.text-center,
+        h1.text-center,
+        h2.text-center,
+        h3.text-center {
             text-align: center !important;
         }
     </style>
@@ -327,10 +344,10 @@
         <div class="w-full px-6 md:px-12 text-center mx-auto pt-24">
             <div class="space-y-24">
                 <div>
-                    <p class="text-xl font-bold text-gray-900" style="line-height: 1.8;">
+                    <p class="text-xl font-bold text-gray-900 text-center">
                         코엑스 전자도서관을 잊고 계셨나요?
                     </p>
-                    <p class="text-xl font-bold text-gray-900 mt-12" style="line-height: 1.8;">
+                    <p class="text-xl font-bold text-gray-900 text-center mt-12">
                         올해 한 권도 못 읽었다면, 이 페이지를 잘 여셨습니다.
                     </p>
                 </div>
@@ -352,15 +369,15 @@
         <div class="w-full px-6 md:px-12 max-w-5xl">
             <div class="text-center space-y-8">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-900 mb-3">2025년 독서 통계</h2>
-                    <p class="text-half text-gray-600">(59세 이하 대상)</p>
+                    <h2 class="text-xl font-bold text-gray-900 text-center mb-3">2025년 독서 통계</h2>
+                    <p class="text-half text-gray-600 text-center">(59세 이하 대상)</p>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="bg-gray-200">
-                                <th class="border border-gray-300 px-4 py-3 text-sm font-bold text-gray-900 text-center" style="text-align: center !important;">특성별 구분</th>
+                                <th class="border border-gray-300 px-4 py-3 text-sm font-bold text-gray-900 text-center">특성별 구분</th>
                                 <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">인구 1인당<br>평균 독서권수<br>(권)</th>
                                 <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">독서율<br>(%)</th>
                                 <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">독서인구 1인당<br>평균 독서권수<br>(권)</th>
@@ -368,49 +385,49 @@
                         </thead>
                         <tbody>
                             <tr class="bg-blue-100">
-                                <td class="border border-gray-300 px-4 py-3 font-bold text-gray-900" style="text-align: center !important;">전국 전체 평균</td>
+                                <td class="border border-gray-300 px-4 py-3 font-bold text-gray-900 text-center">전국 전체 평균</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">7</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">48.7</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">14.3</td>
                             </tr>
                             <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">남자</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">남자</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">7.2</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">45.8</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">15.7</td>
                             </tr>
                             <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">여자</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">여자</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">6.8</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">51.6</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">13.1</td>
                             </tr>
                             <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">13 ~ 19세</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">13 ~ 19세</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">11.7</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">69.8</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">16.8</td>
                             </tr>
                             <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">20 ~ 29세</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">20 ~ 29세</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">9.4</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">60.9</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">15.5</td>
                             </tr>
                             <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">30 ~ 39세</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">30 ~ 39세</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">8.1</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">55</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">14.8</td>
                             </tr>
                             <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">40 ~ 49세</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">40 ~ 49세</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">10.4</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">58.7</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">17.7</td>
                             </tr>
                             <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900" style="text-align: center !important;">50 ~ 59세</td>
+                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">50 ~ 59세</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">6.2</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">49.3</td>
                                 <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">12.5</td>
@@ -427,7 +444,7 @@
     <section class="full-screen-section bg-white/50 content-section">
         <div class="w-full px-6 md:px-12 text-center mx-auto">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 leading-tight">
+                <h1 class="text-3xl font-bold text-gray-900 leading-tight text-center">
                     대한민국 성인 연평균 독서량 7권
                 </h1>
 
@@ -437,11 +454,11 @@
                     <span></span>
                 </div>
 
-                <p class="text-xl font-semibold text-gray-800 text-center" style="line-height: 1.8;">
+                <p class="text-xl font-semibold text-gray-800 text-center">
                     우리에게 남은 6개월,<br>평균을 넘어 성장을 시작할 때
                 </p>
-                <p class="text-xl font-semibold text-gray-800 text-center mt-20" style="line-height: 1.8;">
-                    <span style="color: #a855f7;">코엑스 대표이사</span>가 직접 고른 10권의 추천도서를 소개합니다.
+                <p class="text-xl font-semibold text-gray-800 text-center mt-20">
+                    <span class="highlight-purple">코엑스 대표이사</span>가 직접 고른 10권의 추천도서를 소개합니다.
                 </p>
             </div>
         </div>
@@ -466,7 +483,7 @@
     <!-- 섹션 4: 전자도서관 안내 -->
     <section class="full-screen-section bg-white/50 content-section">
         <div class="w-full px-6 md:px-12 text-center mx-auto space-y-6">
-            <p class="text-xl font-bold text-gray-900">
+            <p class="text-xl font-bold text-gray-900 text-center">
                 이 모든 책은 코엑스 전자도서관을 통해 무료로 보실 수 있습니다.
             </p>
             <div class="space-y-4">
@@ -483,7 +500,7 @@
     <!-- 푸터 -->
     <footer class="w-full bg-white/50 py-16 content-section">
         <div class="w-full px-6 md:px-12 text-center mx-auto">
-            <p style="font-size: 16px !important; color: #888888; text-align: center; margin-top: 50px;">
+            <p class="text-sm text-gray-500 text-center mt-12">
                 문의 : 인재개발팀 (1364)
             </p>
         </div>
