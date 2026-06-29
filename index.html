@@ -119,6 +119,27 @@
             }
         }
 
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            10% { transform: rotate(-2deg) translateX(-2px); }
+            20% { transform: rotate(2deg) translateX(2px); }
+            30% { transform: rotate(-2deg) translateX(-2px); }
+            40% { transform: rotate(2deg) translateX(2px); }
+            50% { transform: rotate(-1deg) translateX(-1px); }
+            60% { transform: rotate(1deg) translateX(1px); }
+            70% { transform: rotate(-1deg) translateX(-1px); }
+            80% { transform: rotate(1deg) translateX(1px); }
+            90% { transform: rotate(-0.5deg) translateX(-0.5px); }
+        }
+
+        .magazine-item {
+            transition: transform 0.3s ease;
+        }
+
+        .magazine-item:hover {
+            animation: shake 0.6s ease-in-out infinite;
+        }
+
         .btn-primary {
             background: #3b3b3b;
             color: white;
@@ -380,90 +401,6 @@
         </div>
     </section>
 
-    <!-- 점 분리선 -->
-    <section class="flex items-center justify-center py-6 bg-white/30">
-        <div class="hero-divider" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </section>
-
-    <!-- 섹션 2: 독서 통계 -->
-    <section class="full-screen-section bg-purple-100 mt-12 content-section">
-        <div class="w-full px-6 md:px-12 max-w-5xl">
-            <div class="text-center space-y-8">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-900 text-center mb-3">2025년 독서 통계</h2>
-                    <p class="text-half text-gray-600 text-center">(59세 이하 대상)</p>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-200">
-                                <th class="border border-gray-300 px-4 py-3 text-sm font-bold text-gray-900 text-center" style="text-align: center;">특성별 구분</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">인구 1인당<br>평균 독서권수<br>(권)</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">독서율<br>(%)</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center text-sm font-bold text-gray-900">독서인구 1인당<br>평균 독서권수<br>(권)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-blue-100">
-                                <td class="border border-gray-300 px-4 py-3 font-bold text-gray-900 text-center">전국 전체 평균</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">7</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">48.7</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">14.3</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">남자</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">7.2</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">45.8</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">15.7</td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">여자</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">6.8</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">51.6</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">13.1</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">13 ~ 19세</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">11.7</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">69.8</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">16.8</td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">20 ~ 29세</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">9.4</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">60.9</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">15.5</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">30 ~ 39세</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">8.1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">55</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">14.8</td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">40 ~ 49세</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">10.4</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">58.7</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">17.7</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="border border-gray-300 px-4 py-3 text-gray-900 text-center">50 ~ 59세</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">6.2</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">49.3</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center text-gray-800">12.5</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-xs text-gray-500"><strong>출처:</strong> KOSIS 국가통계포털</p>
-            </div>
-        </div>
-    </section>
 
     <!-- 섹션 3: 메인 메시지 -->
     <section class="full-screen-section bg-white/50 content-section">
@@ -498,56 +435,47 @@
         </div>
     </section>
 
-    <!-- 점 분리선 -->
-    <section class="flex items-center justify-center py-6 bg-white/30">
-        <div class="hero-divider" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </section>
-
     <!-- 섹션: 매거진 소개 -->
-    <section class="w-full bg-purple-100 py-16 md:py-20 content-section">
-        <div class="w-full px-6 md:px-12 max-w-7xl mx-auto">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; justify-items: center;">
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+    <section class="w-full bg-white/50 py-16 md:py-20 content-section">
+        <div class="w-full px-6 md:px-12 mx-auto">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 80px; justify-items: center; max-width: 1400px; margin: 0 auto;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="씨네21.jpg" alt="씨네21" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="오토카.jpg" alt="오토카" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="월간중앙.jpg" alt="월간중앙" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="이코노믹리뷰.jpg" alt="이코노믹리뷰" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="정책이보이는도서관.jpg" alt="정책이보이는도서관" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="주간조선.jpg" alt="주간조선" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="톱클래스.jpg" alt="톱클래스" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div style="width: 200px; height: 280px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                <div class="flex flex-col items-center magazine-item">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
                         <img src="포브스.jpg" alt="포브스" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
