@@ -700,12 +700,17 @@
                     bookIndices: [3, 4]
                 },
                 {
-                    title: "대한민국 산업의 미래",
-                    description: "반도체, 승부의 심리, 자신에게 집중하는 법을 다루는 책",
-                    bookIndices: [5, 6, 7]
+                    title: "도대체, 반도체",
+                    description: "반도체 산업의 지속 가능한 경쟁력을 생각하는 책",
+                    bookIndices: [5]
                 },
                 {
-                    title: "나를 돌아보는 시간",
+                    title: "한 수 앞을 생각하다",
+                    description: "선택과 실패, 자신에게 집중하는 법을 다루는 책",
+                    bookIndices: [6, 7]
+                },
+                {
+                    title: "마음의 방향을 정리하다",
                     description: "완벽주의를 버리고 여성의 삶과 경험을 돌아보는 책",
                     bookIndices: [8, 9]
                 }
@@ -735,9 +740,6 @@
                     html += `
                         <div class="flex flex-col items-center" style="width: 250px; height: 100%;">
                             <div class="book-card cursor-pointer rounded-lg overflow-hidden relative" onclick="openModal(${book.id})" style="width: 250px; min-height: 375px; display: flex; flex-direction: column;">
-                                <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                                    <span class="category-tag">${book.categoryTag}</span>
-                                </div>
                                 <div class="relative overflow-hidden bg-gray-200" style="aspect-ratio: 2/3; width: 250px; flex-shrink: 0;">
                                     <img
                                         src="${book.coverImage}"
@@ -751,6 +753,9 @@
                                 <h3 class="font-bold text-gray-900 text-center" style="font-size: 24px !important; line-height: 1.5; word-break: keep-all;">${book.title}</h3>
                             </div>
                             <p class="text-gray-500 font-normal text-center" style="width: 250px; margin-top: 8px; font-size: 16px !important; line-height: 1.4 !important;">${book.author}</p>
+                            <div style="margin-top: 12px;">
+                                <span class="category-tag">${book.categoryTag}</span>
+                            </div>
                         </div>
                     `;
                 });
