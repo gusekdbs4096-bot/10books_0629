@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(run)",
+      "Bash(start index_v2.html)",
+      "Bash(powershell -Command \"Start-Process 'index_v2.html'\")",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(xargs grep -l \"특성별 구분\")",
+      "Bash(find . -type d -not -path '*/\\\\.*')",
+      "Bash(xargs cat)",
+      "Bash(command -v gh)",
+      "Bash(gh repo *)",
+      "Bash(git ls-remote *)",
+      "Bash(xargs ls -lh)",
+      "Bash(git remote *)",
+      "Bash(curl -s https://books0615.netlify.app/)",
+      "Bash(start index.html)"
+    ]
+  }
+}

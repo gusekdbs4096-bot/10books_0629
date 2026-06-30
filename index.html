@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<!-- Cache-Buster: 2026-06-30-01-00 -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>COEX 추천도서 - 올해 꼭 읽어야 할 7권</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .full-screen-section {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 0;
+            flex-direction: column;
+        }
+
+
+        .book-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            width: 100%;
+        }
+
+        .book-card.featured {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .book-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #d1d5db;
+        }
+
+        .book-cover {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #f3f4f6;
+            display: block;
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.03);
+        }
+
+        .book-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: #9ca3af;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #6b7280;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            white-space: nowrap;
+        }
+
+        .modal-overlay {
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            10% { transform: rotate(-2deg) translateX(-2px); }
+            20% { transform: rotate(2deg) translateX(2px); }
+            30% { transform: rotate(-2deg) translateX(-2px); }
+            40% { transform: rotate(2deg) translateX(2px); }
+            50% { transform: rotate(-1deg) translateX(-1px); }
+            60% { transform: rotate(1deg) translateX(1px); }
+            70% { transform: rotate(-1deg) translateX(-1px); }
+            80% { transform: rotate(1deg) translateX(1px); }
+            90% { transform: rotate(-0.5deg) translateX(-0.5px); }
+        }
+
+        .magazine-item {
+            transition: transform 0.3s ease;
+        }
+
+        .magazine-item:hover {
+            animation: shake 0.6s ease-in-out infinite;
+        }
+
+        .btn-primary {
+            background: #3b3b3b;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1f1f1f;
+        }
+
+        .book-icon {
+            width: 48px;
+            height: 48px;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+
+        .highlight-purple {
+            color: #a855f7;
+            font-weight: 800;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.6), 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .speech-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f4f6;
+            border: 3px solid #d1d5db;
+            border-radius: 28px;
+            padding: 48px 48px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #374151;
+            position: relative;
+            margin-top: 0px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .speech-bubble.connected {
+            background: #faf5ff;
+            border-color: #a855f7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2), 0 8px 20px rgba(168, 85, 247, 0.15);
+            transform: scale(1.02);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 16px solid transparent;
+            border-right: 16px solid transparent;
+            border-top: 16px solid #f3f4f6;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            border-top: 13px solid #d1d5db;
+            z-index: 1;
+        }
+
+        .content-section {
+            border-left: 1px solid #d1d5db;
+            border-right: 1px solid #d1d5db;
+        }
+
+        /* 텍스트 크기 (2.5배의 2/3) */
+        h1 { font-size: 50px !important; line-height: 1.6 !important; }
+        h2 { font-size: 42px !important; line-height: 1.6 !important; }
+        h3 { font-size: 33px !important; line-height: 1.6 !important; }
+        p { font-size: 27px !important; line-height: 1.8 !important; }
+        button { font-size: 23px !important; line-height: 1.6 !important; }
+
+        .text-3xl { font-size: 50px !important; line-height: 1.6 !important; }
+        .text-xl { font-size: 33px !important; line-height: 1.8 !important; }
+        .text-lg { font-size: 30px !important; line-height: 1.8 !important; }
+        .text-base { font-size: 27px !important; line-height: 1.8 !important; }
+        .text-sm { font-size: 23px !important; line-height: 1.6 !important; }
+        .text-xs { font-size: 20px !important; line-height: 1.6 !important; }
+        .text-4xl { font-size: 60px !important; line-height: 1.6 !important; }
+        .text-5xl { font-size: 75px !important; line-height: 1.6 !important; }
+        .text-6xl { font-size: 100px !important; line-height: 1.6 !important; }
+        .text-2xl { font-size: 42px !important; line-height: 1.6 !important; }
+        table { font-size: 16px !important; }
+        th, td { font-size: 16px !important; padding: 12px !important; }
+
+        /* 여백 조정 */
+        section { padding: 40px 8% !important; }
+        button { padding: 12px 24px !important; }
+
+        /* 섹션 간격 */
+        .max-w-7xl { max-width: 100% !important; }
+        .max-w-6xl { max-width: 100% !important; }
+        .max-w-5xl { max-width: 100% !important; }
+        .full-screen-section { min-height: auto !important; }
+
+        /* 텍스트 섹션 간 여백 */
+        section { margin-bottom: 30px !important; }
+
+        /* 도서 카드 크기 제한 */
+        #bookGrid1 { width: 100% !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; flex-wrap: wrap !important; gap: 50px 60px !important; }
+        #bookGrid2 { width: 100% !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; flex-wrap: wrap !important; gap: 50px 60px !important; }
+        #bookGrid3 { width: 100% !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; flex-wrap: wrap !important; gap: 50px 60px !important; }
+        .book-card { width: 100% !important; }
+
+        /* 책 표지 크기 제한 */
+        .book-cover { max-width: 300px !important; }
+
+        /* 표 크기 제한 */
+        table { max-width: 900px !important; margin: 0 auto !important; }
+        th { font-size: 14px !important; padding: 8px !important; line-height: 1.6 !important; }
+        th.text-sm { font-size: 14px !important; }
+        thead th.text-sm { font-size: 14px !important; }
+        td { font-size: 14px !important; padding: 8px !important; line-height: 1.6 !important; }
+        thead tr { background: #e5e7eb !important; }
+        thead th { font-weight: 600 !important; }
+
+        /* 출처 텍스트 크기 */
+        .text-xs { font-size: 14px !important; }
+
+        /* (59세 이하 대상) 텍스트 1/2 사이즈 */
+        .text-half { font-size: 13.5px !important; }
+
+        /* 섹션 제목 및 설명 텍스트 스타일 */
+        #bookGrid1 h3,
+        #bookGrid2 h3,
+        #bookGrid3 h3 {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            color: #1f2937 !important;
+            margin-top: 16px !important;
+        }
+
+        #bookGrid1 p,
+        #bookGrid2 p,
+        #bookGrid3 p {
+            font-size: 12px !important;
+            color: #6b7280 !important;
+            margin-top: 6px !important;
+        }
+
+        /* 섹션 최대 너비 제한 */
+        #bookGrid1 { max-width: 1400px !important; }
+        #bookGrid2 { max-width: 1000px !important; }
+        #bookGrid3 { max-width: 1000px !important; }
+
+        /* 도서 섹션 세로 구분선 */
+        .vertical-divider-container {
+            border-left: 1px solid #d1d1d1;
+            border-right: 1px solid #d1d1d1;
+            padding-left: 40px;
+            padding-right: 40px;
+            min-height: 100vh;
+        }
+
+        /* 모바일 반응형: 세로 선 제거 */
+        @media (max-width: 768px) {
+            .vertical-divider-container {
+                border-left: none;
+                border-right: none;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+
+        .hero-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin: 36px 0;
+        }
+
+        .hero-divider span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(15, 23, 42, 0.35);
+        }
+
+        /* 가운데 정렬 안정화 */
+        .center-aligned {
+            text-align: center !important;
+        }
+
+        table thead th:first-child,
+        table tbody td:first-child {
+            text-align: center !important;
+        }
+
+        /* 모든 text-center 요소에 대한 강화된 규칙 */
+        .text-center {
+            text-align: center !important;
+        }
+
+        p.text-center,
+        h1.text-center,
+        h2.text-center,
+        h3.text-center {
+            text-align: center !important;
+        }
+
+        /* 섹션 1: 전자도서관 메인 메시지 - 명확한 가운데 정렬 */
+        .full-screen-section:first-of-type p {
+            text-align: center !important;
+            width: 100% !important;
+            display: block !important;
+        }
+
+        .full-screen-section:first-of-type {
+            text-align: center !important;
+        }
+
+        .full-screen-section:first-of-type > div > div > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .full-screen-section:first-of-type > div > div > div p {
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        /* 매거진 소개 텍스트 크기 (1.5배) */
+        .magazine-intro-text {
+            font-size: 33px !important;
+            line-height: 1.8 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 로고 헤더 -->
+    <nav class="bg-white/80 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center">
+            <img src="coex logo.png" alt="COEX" class="h-10">
+        </div>
+    </nav>
+
+    <!-- 섹션 1: 전자도서관 메인 메시지 -->
+    <section class="full-screen-section bg-white/50 content-section">
+        <div class="flex flex-col items-center text-center w-full px-6 md:px-12 mx-auto pt-24">
+            <div class="space-y-24 w-full">
+                <div class="flex flex-col items-center w-full">
+                    <p class="text-xl font-bold text-center" style="font-size: 28px; line-height: 1.7; font-weight: 800; color: #a855f7;">
+                        코엑스 전자도서관을 잘 이용하고 계신가요?
+                    </p>
+                </div>
+                <div class="flex flex-col items-center w-full">
+                    <div class="speech-bubble connected" style="font-size: 24px; padding: 60px 80px; line-height: 1.7;">
+                        7월의 베스트셀러가 입고되었습니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 통합 도서 섹션: 4개 그룹 (10권) -->
+    <section class="w-full bg-purple-100 py-16 md:py-20 content-section">
+        <div class="w-full px-6 md:px-12 max-w-7xl mx-auto vertical-divider-container">
+            <div id="bookContainer" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px 60px;"></div>
+        </div>
+    </section>
+
+    <!-- 섹션 3: 메인 메시지 -->
+    <section class="full-screen-section bg-white/50 content-section">
+        <div class="w-full px-6 md:px-12 text-center mx-auto">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 leading-tight text-center">
+                    혹시 아직도 책이 어색하신가요?
+                </h1>
+
+                <div class="hero-divider" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <p class="text-xl font-semibold text-gray-800 text-center">
+                    점점 텍스트와 멀어지는 나, 우선 글과 친해져봅시다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 섹션: 매거진 소개 -->
+    <section class="w-full bg-white/50 py-16 md:py-20 content-section">
+        <div class="w-full px-6 md:px-12 mx-auto">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <p class="text-xl font-semibold text-gray-800 text-center" style="font-size: 33px; line-height: 1.8;">
+                    아래 매거진은 어떤가요?
+                </p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 80px; justify-items: center; max-width: 1400px; margin: 0 auto;">
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('씨네21.jpg', '씨네21')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="씨네21.jpg" alt="씨네21" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('오토카.jpg', '오토카')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="오토카.jpg" alt="오토카" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('월간중앙.jpg', '월간중앙')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="월간중앙.jpg" alt="월간중앙" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('이코노믹리뷰.jpg', '이코노믹리뷰')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="이코노믹리뷰.jpg" alt="이코노믹리뷰" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('정책이보이는도서관.jpg', '정책이보이는도서관')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="정책이보이는도서관.jpg" alt="정책이보이는도서관" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('주간조선.jpg', '주간조선')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="주간조선.jpg" alt="주간조선" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('톱클래스.jpg', '톱클래스')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="톱클래스.jpg" alt="톱클래스" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center magazine-item" onclick="openImageModal('포브스.jpg', '포브스')" style="cursor: pointer;">
+                    <div style="width: 260px; height: 360px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #f3f4f6;">
+                        <img src="포브스.jpg" alt="포브스" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 매거진 설명 섹션 -->
+    <section class="full-screen-section bg-white/50 content-section">
+        <div class="w-full px-6 md:px-12 text-center mx-auto">
+            <p class="text-xl font-semibold text-gray-800 text-center magazine-intro-text">
+                <span class="highlight-purple">코엑스 전자도서관</span>에는 다양한 매거진도 준비되어있습니다.<br>
+                어쩌면 당신의 업무에 영감을 줄지도 모르겠습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- 점 분리선 -->
+    <section class="flex items-center justify-center py-6 bg-white/30">
+        <div class="hero-divider" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </section>
+
+    <!-- 섹션 4: 전자도서관 안내 -->
+    <section class="full-screen-section bg-white/50 content-section">
+        <div class="w-full px-6 md:px-12 text-center mx-auto space-y-6">
+            <p class="text-xl font-bold text-gray-900 text-center">
+                이 모든 책은 코엑스 전자도서관을 통해 무료로 보실 수 있습니다.
+            </p>
+            <div class="space-y-4">
+                <a href="https://coex.dkyobobook.co.kr/main.ink" target="_blank" class="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold text-xl">
+                    전자도서관 바로가기
+                </a>
+                <a href="https://gw.coex.co.kr/app/board/10/post/96885" target="_blank" class="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold text-xl block">
+                    사용방법 확인하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="w-full bg-white/50 py-16 content-section">
+        <div class="w-full px-6 md:px-12 text-center mx-auto">
+            <p class="text-sm text-gray-500 text-center mt-12">
+                문의 : 인재개발팀 (1364)
+            </p>
+        </div>
+    </footer>
+
+    <!-- 책 표지 확대 모달 -->
+    <div id="imageModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50" onclick="closeImageModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="modal-content relative bg-white rounded-lg shadow-xl max-w-[900px] max-h-[90vh] overflow-auto border border-gray-200">
+                <!-- 닫기 버튼 -->
+                <button onclick="closeImageModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10 transition-colors bg-white rounded-full p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div class="p-4">
+                    <img id="enlargedImage" src="" alt="책 표지" class="w-full h-auto object-contain">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 책 상세 모달 -->
+    <div id="modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="modal-overlay fixed inset-0 bg-black bg-opacity-40" onclick="closeModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="modal-content relative bg-white rounded-lg shadow-xl w-[80vw] max-w-[1000px] max-h-[85vh] overflow-y-auto border border-gray-200">
+                <!-- 닫기 버튼 -->
+                <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 z-10 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div class="p-10 space-y-8">
+                    <!-- 상단: 표지 + 정보 -->
+                    <div class="flex gap-8 items-start">
+                        <img id="modalCover" src="" alt="책 표지" class="w-[150px] h-auto object-contain flex-shrink-0 rounded shadow-md border border-gray-200">
+                        <div class="flex-1">
+                            <h2 id="modalTitle" class="text-2xl font-bold text-gray-900 mb-3"></h2>
+                            <p id="modalAuthor" class="text-sm text-gray-600 font-medium mb-12"></p>
+                            <p id="modalSubtitle" class="text-sm text-gray-700 font-medium leading-relaxed py-3 bg-gray-50 rounded-lg text-left" style="padding: 12px; padding-left: 0;"></p>
+                        </div>
+                    </div>
+
+                    <!-- 구분선 -->
+                    <div class="border-t border-gray-200"></div>
+
+                    <!-- 추천 이유 -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-purple-600 mb-4">[AI 리뷰]</h3>
+                        <p id="modalDescription" class="text-sm text-gray-700 leading-relaxed line-height-1-6"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 📚 책 데이터 (이곳에서 텍스트를 수정하세요!)
+        // ============================================================
+        const books = [
+            // Group 1: 격변의 시대를 읽다 (3권)
+            {
+                id: 1,
+                title: "세상이 그대를 속일지라도",
+                subtitle: "주요 일간지(중앙·매경·한경 등) 추천도서",
+                author: "김상욱 / 동아시아",
+                coverImage: "(도서)세상이그대를속일지라도.jpg",
+                group: "group1",
+                categoryTag: "과학",
+                description: "물리학자 김상욱이 과학을 통해 세상과 인간을 바라보는 새로운 시각을 제시합니다. 복잡한 현실 속에서도 본질을 이해하고 싶은 독자에게 추천합니다."
+            },
+            {
+                id: 2,
+                title: "AI 타이탄들의 전쟁",
+                subtitle: "주요 일간지(조선·동아·매경 등) 추천도서",
+                author: "게리 리블린 / 알에이치코리아",
+                coverImage: "(도서)AI타이탄들의전쟁.jpg",
+                group: "group1",
+                categoryTag: "경제경영",
+                description: "오픈AI, 구글, 메타, 마이크로소프트 등 글로벌 AI 기업들의 경쟁을 생생하게 담아낸 책입니다. AI 시대의 흐름과 산업의 미래를 이해하는 데 도움이 됩니다."
+            },
+            {
+                id: 3,
+                title: "인간 없는 전쟁",
+                subtitle: "주요 일간지(중앙·동아·매경 등) 추천도서",
+                author: "최재운 / 북트리거",
+                coverImage: "(도서)인간없는전쟁.jpg",
+                group: "group1",
+                categoryTag: "사회과학",
+                description: "AI와 드론, 무인무기가 바꾸는 미래 전쟁을 통해 기술 발전이 사회와 인간에게 던지는 새로운 질문을 살펴봅니다."
+            },
+            // Group 2: 경제와 산업의 흐름 (3권)
+            {
+                id: 4,
+                title: "혁신의 지리학",
+                subtitle: "주요 일간지(중앙·매경·한경 등) 추천도서",
+                author: "메흐란 굴 / 비즈니스북스",
+                coverImage: "(도서)혁신의지리학.jpg",
+                group: "group2",
+                categoryTag: "경제경영",
+                description: "혁신은 왜 특정 도시와 국가에서 탄생하는가? 글로벌 혁신 클러스터를 분석하며 미래 산업의 흐름을 읽어볼 수 있는 책입니다."
+            },
+            {
+                id: 5,
+                title: "부동산은 어떻게 권력이 되었나",
+                subtitle: "주요 일간지(조선·중앙·동아 등) 추천도서",
+                author: "마이크 버드 / 알에이치코리아",
+                coverImage: "(도서)부동산은어떻게권력이되었나.jpg",
+                group: "group2",
+                categoryTag: "경제경영",
+                description: "부동산을 단순한 자산이 아닌 정치·경제·사회 구조의 관점에서 풀어낸 책입니다. 집값 너머의 구조를 이해하고 싶은 분께 추천합니다."
+            },
+            {
+                id: 6,
+                title: "반도체 강국의 역설",
+                subtitle: "반도체 산업 심층 분석",
+                author: "안흥준 외 1명 / 바른북스",
+                coverImage: "(도서)반도체강국의역설.jpg",
+                group: "group2",
+                categoryTag: "경제경영",
+                description: "대한민국 반도체 산업의 성장 과정과 구조적 한계를 진단하며, 지속 가능한 경쟁력을 위해 필요한 과제를 제시합니다."
+            },
+            // Group 3: 나를 돌아보는 시간 (2권)
+            {
+                id: 7,
+                title: "이세돌, 인생의 수읽기",
+                subtitle: "주요 일간지(조선·동아·매경 등) 추천도서",
+                author: "이세돌 / 웅진지식하우스",
+                coverImage: "(도서)이세돌,인생의수읽기.jpg",
+                group: "group3",
+                categoryTag: "자기계발",
+                description: "최고의 승부사였던 이세돌이 선택과 실패, 도전에 대해 들려주는 이야기입니다. 인생과 일에서 자신만의 판단 기준을 세우는 데 영감을 줍니다."
+            },
+            {
+                id: 8,
+                title: "렛뎀 이론",
+                subtitle: "주요 일간지(조선·동아·매경 등) 추천도서 · 교보문고 베스트셀러",
+                author: "멜 로빈스 / 비즈니스북스",
+                coverImage: "(도서)렛뎀이론.jpg",
+                group: "group3",
+                categoryTag: "자기계발",
+                description: "타인의 말과 행동을 바꾸려 애쓰기보다 나에게 집중하는 법을 알려주는 실천형 자기계발서입니다. 인간관계와 스트레스를 줄이고 싶은 분께 추천합니다."
+            },
+            // Group 4: 나를 돌아보는 시간 (2권)
+            {
+                id: 9,
+                title: "유연한 완벽주의자",
+                subtitle: "주요 일간지(조선·중앙·매경 등) 추천도서",
+                author: "엘런 헨드릭슨 / 어크로스",
+                coverImage: "(도서)유연한완벽주의자.jpg",
+                group: "group4",
+                categoryTag: "자기계발",
+                description: "완벽해야 한다는 압박에서 벗어나 더 유연하고 건강하게 성장하는 방법을 심리학을 바탕으로 제시하는 책입니다."
+            },
+            {
+                id: 10,
+                title: "엄마와 딸들의 미친년의 역사",
+                subtitle: "주요 일간지(중앙·한경·한국일보 등) 추천도서",
+                author: "이랑 / 이야기장수",
+                coverImage: "(도서)엄마와딸들의미친년의역사.jpg",
+                group: "group4",
+                categoryTag: "에세이",
+                description: "엄마와 딸, 여성의 삶을 둘러싼 경험을 솔직하고 유쾌하게 풀어낸 에세이입니다. 익숙한 관계와 사회를 새로운 시선으로 바라보게 합니다."
+            }
+        ];
+        // ============================================================
+
+        let currentBook = null;
+
+        // 책 표지 로드 실패 시 placeholder 표시
+        function handleImageError(img, bookTitle) {
+            img.style.display = 'none';
+            const container = img.parentElement;
+            const placeholder = document.createElement('div');
+            placeholder.className = 'book-placeholder';
+            placeholder.innerHTML = `
+                <svg class="book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 5h16M6.5 7h7M6.5 11h7M6.5 15h4"/>
+                </svg>
+                <span class="text-sm font-medium">COEX 추천도서</span>
+            `;
+            container.appendChild(placeholder);
+        }
+
+        // 책 그리드 렌더링 (통합 레이아웃)
+        function renderBooks() {
+            const container = document.getElementById('bookContainer');
+            let html = '';
+
+            // Group 정의
+            const groups = [
+                {
+                    title: "격변의 시대를 읽다",
+                    description: "과학과 AI가 뒤흔드는 2026년 읽기",
+                    bookIndices: [0, 1, 2]
+                },
+                {
+                    title: "경제와 산업의 흐름",
+                    description: "땅을 통해 읽는 산업과 부",
+                    bookIndices: [3, 4]
+                },
+                {
+                    title: "도대체, 반도체",
+                    description: "반도체, 도대체 언제까지?",
+                    bookIndices: [5]
+                },
+                {
+                    title: "한 수 앞을 생각하다",
+                    description: "불확실함을 다루는 법",
+                    bookIndices: [6, 7]
+                },
+                {
+                    title: "마음의 방향을 정리하다",
+                    description: "지치고 다친 사람들을 위해",
+                    bookIndices: [8, 9]
+                }
+            ];
+
+            // 각 Group 렌더링
+            groups.forEach((groupIndex, index) => {
+                const group = groups[index];
+
+                // 그룹 간 구분선 (첫 번째 그룹 제외)
+                if (index > 0) {
+                    html += `<div style="width: 100%; border-bottom: 1px solid #d1d5db; margin: 48px 0 48px 0;"></div>`;
+                }
+
+                // 그룹 제목 및 설명 (전체 너비)
+                const descriptionFontSize = index === 0 ? '11.52px' : '14.4px';
+                html += `
+                    <div style="width: 100%; text-align: center; margin-bottom: 32px; padding: 0 20px;">
+                        <h3 class="font-bold text-gray-900 mb-2" style="font-size: 16.8px;">${group.title}</h3>
+                        <p class="text-gray-600" style="font-size: ${descriptionFontSize};">${group.description}</p>
+                    </div>
+                `;
+
+                // 그룹 내 책들
+                group.bookIndices.forEach((idx) => {
+                    const book = books[idx];
+                    html += `
+                        <div class="flex flex-col items-center" style="width: 250px; height: 100%;">
+                            <div class="book-card rounded-lg overflow-hidden relative" style="width: 250px; min-height: 375px; display: flex; flex-direction: column; cursor: pointer;" onclick="openImageModal('${book.coverImage}', '${book.title}')">
+                                <div class="relative overflow-hidden bg-gray-200" style="aspect-ratio: 2/3; width: 250px; flex-shrink: 0;">
+                                    <img
+                                        src="${book.coverImage}"
+                                        alt="${book.title}"
+                                        class="book-cover"
+                                        onerror="handleImageError(this, '${book.title}')"
+                                    >
+                                </div>
+                            </div>
+                            <div style="width: 250px; min-height: 56px; margin-top: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="openModal(${book.id})">
+                                <h3 class="font-bold text-gray-900 text-center" style="font-size: 24px !important; line-height: 1.5; word-break: keep-all;">${book.title}</h3>
+                            </div>
+                            <p class="text-gray-500 font-normal text-center" style="width: 250px; margin-top: 8px; font-size: 16px !important; line-height: 1.4 !important; cursor: pointer;" onclick="openModal(${book.id})">${book.author}</p>
+                            <div style="margin-top: 12px; cursor: pointer;" onclick="openModal(${book.id})">
+                                <span class="category-tag">${book.categoryTag}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 모달 열기
+        function openModal(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (!book) return;
+
+            currentBook = book;
+            document.getElementById('modalCover').src = book.coverImage;
+            document.getElementById('modalTitle').textContent = book.title;
+            document.getElementById('modalSubtitle').textContent = book.subtitle;
+            document.getElementById('modalAuthor').textContent = book.author;
+            document.getElementById('modalDescription').textContent = book.description;
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 이미지 확대 모달 열기
+        function openImageModal(imageSrc, bookTitle) {
+            document.getElementById('enlargedImage').src = imageSrc;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 이미지 확대 모달 닫기
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeImageModal();
+                closeModal();
+            }
+        });
+
+        // 초기 렌더링
+        renderBooks();
+    </script>
+</body>
+</html>
